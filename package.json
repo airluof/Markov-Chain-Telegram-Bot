@@ -1,0 +1,19 @@
+{
+  "name": "markov-chain-telegram-bot",
+  "version": "1.0.0",
+  "description": "A simple bot for Telegram that reproduces the Markov Chain.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Amaimersion/Markov-Chain-Telegram-Bot.git"
+  },
+  "author": {
+    "name": "Sergey Kuznetsov",
+    "url": "https://github.com/Amaimersion"
+  },
+  "bugs": {
+    "url": "https://github.com/Amaimersion/Markov-Chain-Telegram-Bot/issues"
+  },
+  "homepage": "https://github.com/Amaimersion/Markov-Chain-Telegram-Bot#readme",
+  "license": "MIT",
+  "private": true
+}
