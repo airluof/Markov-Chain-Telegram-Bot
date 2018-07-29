@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "target": "ES2018",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "rootDir": "src",
+        "outDir": "dist",
+        /* Cannot find an appropriate way to fix these aliases in compiled JS files.
+        "baseUrl": "./",
+        "paths": {
+            "@src/*": ["src/*"],
+            "@routes/*": ["src/routes/*"],
+            "@controllers/*": ["src/controllers/*"]
+        },
+        */
+        "sourceMap": true,
+        "alwaysStrict": true,
+        "disableSizeLimit": true,
+        "downlevelIteration": true,
+        "noErrorTruncation": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitThis": true,
+        "noUnusedLocals": true,
+        //"noUnusedParameters": true,
+        "removeComments": true
+    }
+}
