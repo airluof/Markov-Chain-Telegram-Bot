@@ -15,5 +15,8 @@
   },
   "homepage": "https://github.com/Amaimersion/Markov-Chain-Telegram-Bot#readme",
   "license": "MIT",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "express": "^4.16.3"
+  }
 }
