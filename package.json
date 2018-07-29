@@ -2,6 +2,13 @@
   "name": "markov-chain-telegram-bot",
   "version": "1.0.0",
   "description": "A simple bot for Telegram that reproduces the Markov Chain.",
+  "scripts": {
+    "start": "node dist/server",
+    "build": "tsc",
+    "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-server\"",
+    "watch-ts": "tsc --watch",
+    "watch-server": "nodemon dist/server"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Amaimersion/Markov-Chain-Telegram-Bot.git"
