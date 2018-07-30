@@ -1,0 +1,3 @@
+[submodule "src/markov-chain/markov_chain"]
+	path = src/markov-chain/markov_chain
+	url = https://github.com/Amaimersion/markov-chain.git
