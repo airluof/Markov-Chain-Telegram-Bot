@@ -23,8 +23,10 @@ app.use(morgan("dev"));
 
 /* Routes. */
 
+import telegramRouter from "./routes/telegram";
 import errorRouter from "./routes/error";
 
+app.use("/telegram", telegramRouter);
 app.use("*", errorRouter); // 404, keep this as the last route.
 
 
