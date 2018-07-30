@@ -13,5 +13,33 @@ export const methodNotAllowed: CustomController = (req, res) => {
 
 
 export const webHook: CustomController = (req, res) => {
-    res.send(405);
+    if (!req.body) {
+        res.status(400);
+        res.json({status: false, code: res.statusCode});
+        return;
+    }
+
+    if (req.body.message) {
+        message(req, res);
+    } else {
+        console.warn("Unhandled Telegram request type.");
+        console.log(req.body);
+        res.sendStatus(200);
+    }
+};
+
+
+const message: CustomController = (req, res) => {
+    if (req.body.message.text) {
+        messagePlainText(req, res);
+    } else {
+        console.warn("Telegram Message request doesn't contains a plain text.");
+        res.sendStatus(200);
+    }
+};
+
+
+const messagePlainText: CustomController = (req, res) => {
+    console.log(req.body.message);
+    res.sendStatus(200);
 };
