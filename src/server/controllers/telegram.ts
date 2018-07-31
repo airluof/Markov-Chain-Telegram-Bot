@@ -1,4 +1,4 @@
-import {CustomController} from "../types/index"
+import {CustomController, PythonChild} from "../types/index"
 
 
 /**
@@ -13,7 +13,7 @@ export const methodNotAllowed: CustomController = (req, res) => {
 
 
 export const webHook: CustomController = (req, res) => {
-    if (!req.body) {
+    if (!req.body || !Object.keys(req.body).length) {
         res.status(400);
         res.json({status: false, code: res.statusCode});
         return;
@@ -40,6 +40,14 @@ const message: CustomController = (req, res) => {
 
 
 const messagePlainText: CustomController = (req, res) => {
+    const MarkovChain: PythonChild = req.app.locals.MarkovChain
+
+    MarkovChain.process.stdout.on("data", (data) => {
+        console.log(`${data}`);
+    });
+
+    MarkovChain.process.stdin.write("\n");
+
     console.log(req.body.message);
     res.sendStatus(200);
 };

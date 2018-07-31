@@ -30,6 +30,17 @@ app.use("/telegram", telegramRouter);
 app.use("*", errorRouter); // 404, keep this as the last route.
 
 
+/* Python child process for Markov Chain generation. */
+
+import {PythonChild} from "./python-child/index";
+
+const MarkovChain = new PythonChild("markov child process");
+MarkovChain.createProcess("python3", ["./src/markov-chain/main.py"], {env: {"LC_ALL": "en_US.UTF-8"}});
+
+// set up for usage in other scripts.
+app.locals.MarkovChain = MarkovChain;
+
+
 /* Express APP. */
 
 export default app;

@@ -4,9 +4,9 @@ from markov_chain import MarkovChain, extensions
 
 def main():
     chain = MarkovChain()
-    chain.chain = extensions.file.json.read("./markov-chain/generated-chains/ru/my-favorites-3-window.json")
+    chain.chain = extensions.file.json.read("./src/markov-chain/generated-chains/ru/my-favorites-3-window.json")
 
-    print("Ready")
+    #print("Ready")
 
     while True:
         arg = input()
