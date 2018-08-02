@@ -37,8 +37,29 @@ import {PythonChild} from "./python-child/index";
 const MarkovChain = new PythonChild("markov child process");
 MarkovChain.createProcess("python3", ["./src/markov-chain/main.py"], {env: {"LC_ALL": "en_US.UTF-8"}});
 
+app.locals.Promises = [];
+
 // set up for usage in other scripts.
-app.locals.MarkovChain = MarkovChain;
+app.locals.MarkovChainGenerate = () => {
+    return new Promise(async (resolve) => {
+        let res = undefined;
+
+        const promise = new Promise((resolve) => {
+            res = resolve;
+        });
+
+        app.locals.Promises.push({resolve: res, promise: promise})
+        MarkovChain.process.stdin.write("\n");
+
+        const data = await app.locals.Promises[0].promise;
+
+        return resolve(data);
+    });
+};
+
+MarkovChain.process.stdout.on("data", (data) => {
+    app.locals.Promises.shift().resolve(data.toString());
+});
 
 
 /* Express APP. */

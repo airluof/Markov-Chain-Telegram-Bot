@@ -1,4 +1,5 @@
-import {CustomController, PythonChild} from "../types/index"
+import axios from "axios";
+import {CustomController} from "../types/index"
 
 
 /**
@@ -40,14 +41,31 @@ const message: CustomController = (req, res) => {
 
 
 const messagePlainText: CustomController = (req, res) => {
-    const MarkovChain: PythonChild = req.app.locals.MarkovChain
+    generateMarkovChain(req, res);
+};
 
-    MarkovChain.process.stdout.on("data", (data) => {
-        console.log(`${data}`);
+
+const generateMarkovChain: CustomController = async (req, res) => {
+    let message = "";
+
+    req.app.locals.MarkovChainGenerate().then((data) => {
+        message = data;
+        res.send(message); // only in dev.
+    }).catch(() => {
+        message = "Ошибка.";
+        res.send(message); // only in dev.
     });
 
-    MarkovChain.process.stdin.write("\n");
+    return; // only in dev.
 
-    console.log(req.body.message);
+    axios.post("https://api.telegram.org/<bot>/sendMessage", {
+        chat_id: req.body.message.chat.id,
+        text: message
+    }).then((res) => {
+        console.log("Message sended", message);
+    }).catch((err) => {
+        console.error(err);
+    });
+
     res.sendStatus(200);
 };

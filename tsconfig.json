@@ -5,6 +5,9 @@
         "moduleResolution": "node",
         "rootDir": "src/server",
         "outDir": "dist",
+        "lib": [
+            "es2018"
+        ],
         /* Cannot find an appropriate way to fix these aliases in compiled JS files.
         "baseUrl": "./",
         "paths": {
