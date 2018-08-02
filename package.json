@@ -4,6 +4,7 @@
   "description": "A simple bot for Telegram that reproduces the Markov Chain.",
   "scripts": {
     "start": "NODE_ENV=production node dist/server",
+    "postinstall": "yarn run build",
     "build": "tsc",
     "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-server\"",
     "watch-ts": "tsc --watch",
