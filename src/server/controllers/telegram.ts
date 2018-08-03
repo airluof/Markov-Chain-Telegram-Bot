@@ -46,13 +46,15 @@ const messagePlainText: CustomController = (req, res) => {
 
 
 const generateMarkovChain: CustomController = async (req, res) => {
+    res.sendStatus(200);
+
     let message = "";
 
-    req.app.locals.MarkovChainGenerate(req.body.message.text).then((data) => {
-        message = data;
-    }).catch(() => {
+    try {
+        message = await req.app.locals.MarkovChainGenerate(req.body.message.text);
+    } catch (error) {
         message = "Ошибка.";
-    });
+    }
 
     axios.post(`https://api.telegram.org/${process.env.BOT_TOKEN}/sendMessage`, {
         chat_id: req.body.message.chat.id,
@@ -62,6 +64,4 @@ const generateMarkovChain: CustomController = async (req, res) => {
     }).catch((err) => {
         console.error(err);
     });
-
-    res.sendStatus(200);
 };
