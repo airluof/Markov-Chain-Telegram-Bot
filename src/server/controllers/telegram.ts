@@ -46,22 +46,32 @@ const messagePlainText: CustomController = (req, res) => {
 
 
 const generateMarkovChain: CustomController = async (req, res) => {
+    // Generation can take a long time.
+    // So, we send to Telegram that we received the message and handle it.
+    // If we don't send `OK` response, then Telegram
+    // will be send a message over and over again.
     res.sendStatus(200);
 
-    let message = "";
+    /**
+     * @see https://core.telegram.org/bots/api#sendmessage
+     */
+    const sendOptions: any = {
+        chat_id: req.body.message.chat.id
+    };
 
     try {
-        message = await req.app.locals.MarkovChainGenerate(req.body.message.text);
+        sendOptions.message = await req.app.locals.MarkovChain.generate(req.body.message.text);
     } catch (error) {
-        message = "Ошибка.";
+        sendOptions.parse_mode = "Markdown";
+        sendOptions.message = "*Ошибка.*";
+        console.error(error);
     }
 
-    axios.post(`${process.env.BOT_API}${process.env.BOT_TOKEN}/sendMessage`, {
-        chat_id: req.body.message.chat.id,
-        text: message
-    }).then((res) => {
-        console.log("Message sended", message);
-    }).catch((err) => {
+    axios.post(`${process.env.BOT_API}${process.env.BOT_TOKEN}/sendMessage`, sendOptions)
+    .then((res) => {
+        console.log(`Message for ${req.body.message.chat.username} is sended: ${sendOptions.message}`);
+    })
+    .catch((err) => {
         console.error(err);
     });
 };
