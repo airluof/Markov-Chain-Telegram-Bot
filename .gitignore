@@ -1,4 +1,5 @@
 node_modules
 dist
 npm-debug.log
+src/markov-chain/generated-chains/*
 !src/markov-chain/generated-chains/README.md
