@@ -1,5 +1,27 @@
+# Dependency directory
 node_modules
+
+# Build directory
 dist
-npm-debug.log
+
+# Unnecessary large files
 src/markov-chain/generated-chains/*
 !src/markov-chain/generated-chains/README.md
+
+# API keys and secrets
+.env
+
+# Unnecessary files and directories
+lib-cov
+pids
+logs
+results
+tmp
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+*.swp
