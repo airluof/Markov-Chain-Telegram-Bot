@@ -56,7 +56,7 @@ const generateMarkovChain: CustomController = async (req, res) => {
         message = "Ошибка.";
     }
 
-    axios.post(`https://api.telegram.org/${process.env.BOT_TOKEN}/sendMessage`, {
+    axios.post(`${process.env.BOT_API}${process.env.BOT_TOKEN}/sendMessage`, {
         chat_id: req.body.message.chat.id,
         text: message
     }).then((res) => {
