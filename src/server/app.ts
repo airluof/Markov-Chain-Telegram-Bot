@@ -1,3 +1,10 @@
+/* ENV Variables. */
+
+import * as dotenv from "dotenv";
+
+dotenv.config()
+
+
 /* Express app. */
 
 import * as express from "express";
