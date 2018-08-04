@@ -13,6 +13,11 @@ export const methodNotAllowed: CustomController = (req, res) => {
 };
 
 
+/**
+ * Gets a WebHook from Telegram and handles it.
+ *
+ * Sends status 400 and custom error response if request doesn't contain a body.
+ */
 export const webHook: CustomController = (req, res) => {
     if (!req.body || !Object.keys(req.body).length) {
         res.status(400);
@@ -24,12 +29,15 @@ export const webHook: CustomController = (req, res) => {
         message(req, res);
     } else {
         console.warn("Unhandled Telegram request type.");
-        console.log(req.body);
+        console.warn(req.body);
         res.sendStatus(200);
     }
 };
 
 
+/**
+ * Handles Telegram Message request.
+ */
 const message: CustomController = (req, res) => {
     if (req.body.message.text) {
         messagePlainText(req, res);
@@ -40,11 +48,17 @@ const message: CustomController = (req, res) => {
 };
 
 
+/**
+ * Handles Telegram Message that contains a plain text.
+ */
 const messagePlainText: CustomController = (req, res) => {
     generateMarkovChain(req, res);
 };
 
 
+/**
+ * Generates a text and sends it as a response to the Telegram Message.
+ */
 const generateMarkovChain: CustomController = async (req, res) => {
     // Generation can take a long time.
     // So, we send to Telegram that we received the message and handle it.
