@@ -70,7 +70,7 @@ const generateMarkovChain: CustomController = async (req, res) => {
      * @see https://core.telegram.org/bots/api#sendmessage
      */
     const sendOptions: any = {
-        chat_id: req.body.message.chat.id
+        chat_id: process.env.NODE_ENV == "development" ? "dev" : req.body.message.chat.id
     };
 
     try {
@@ -92,7 +92,8 @@ const generateMarkovChain: CustomController = async (req, res) => {
 
     axios.post(url, sendOptions)
     .then((res) => {
-        console.log(`Message for ${req.body.message.chat.username} is sended: ${sendOptions.message}`);
+        const username = process.env.NODE_ENV == "development" ? "dev" : req.body.message.chat.username;
+        console.log(`Message for ${username} is sended: ${sendOptions.message}`);
     })
     .catch((err) => {
         console.error(err);
