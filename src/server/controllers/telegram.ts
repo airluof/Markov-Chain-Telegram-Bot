@@ -81,7 +81,16 @@ const generateMarkovChain: CustomController = async (req, res) => {
         console.error(error);
     }
 
-    axios.post(`${process.env.BOT_API}${process.env.BOT_TOKEN}/sendMessage`, sendOptions)
+    let url: string = undefined;
+
+    // if development, then send to local computer.
+    if (process.env.NODE_ENV === "development") {
+        url = req.protocol + '://' + req.get('host') + req.originalUrl;
+    } else {
+        url = `${process.env.BOT_API}${process.env.BOT_TOKEN}/sendMessage`;
+    }
+
+    axios.post(url, sendOptions)
     .then((res) => {
         console.log(`Message for ${req.body.message.chat.username} is sended: ${sendOptions.message}`);
     })
