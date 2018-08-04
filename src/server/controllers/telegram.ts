@@ -74,10 +74,10 @@ const generateMarkovChain: CustomController = async (req, res) => {
     };
 
     try {
-        sendOptions.message = await req.app.locals.MarkovChain.generate(req.body.message.text);
+        sendOptions.text = await req.app.locals.MarkovChain.generate(req.body.message.text);
     } catch (error) {
         sendOptions.parse_mode = "Markdown";
-        sendOptions.message = "*Ошибка.*";
+        sendOptions.text = "*Ошибка.*";
         console.error(error);
     }
 
@@ -93,7 +93,7 @@ const generateMarkovChain: CustomController = async (req, res) => {
     axios.post(url, sendOptions)
     .then((res) => {
         const username = process.env.NODE_ENV == "development" ? "dev" : req.body.message.chat.username;
-        console.log(`Message for ${username} is sended: ${sendOptions.message}`);
+        console.log(`Message for ${username} is sended: ${sendOptions.text}`);
     })
     .catch((err) => {
         console.error(err);
