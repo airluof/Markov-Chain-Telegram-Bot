@@ -41,7 +41,7 @@ app.use("*", errorRouter); // 404, keep this as the last route.
 
 import {create} from "./markov-chain";
 
-create();
+create(app);
 
 
 /* Express APP. */

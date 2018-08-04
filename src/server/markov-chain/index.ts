@@ -1,12 +1,13 @@
 import {PythonChild} from "./../python-child/index";
-import app from "./../app";
 
 
 /**
  * Creates Python child process for Markov Chain generation.
  * Will be available through `app.locals.MarkovChain.generate()`.
+ *
+ * @param app An app for local variables binding.
  */
-export function create() {
+export function create(app) {
     const MarkovChain = new PythonChild("markov child process");
 
     MarkovChain.createProcess(
