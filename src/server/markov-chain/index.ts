@@ -58,13 +58,13 @@ export function create(app) {
     }
 
     MarkovChain.process.stderr.on("data", (data) => {
-        if (app.locals.MarkovChain.promises) {
+        if (app.locals.MarkovChain.promises.length) {
             app.locals.MarkovChain.promises.shift().reject(data.toString());
         }
     });
 
     MarkovChain.process.stdout.on("data", (data) => {
-        if (app.locals.MarkovChain.promises) {
+        if (app.locals.MarkovChain.promises.length) {
             app.locals.MarkovChain.promises.shift().resolve(data.toString());
         }
     });
