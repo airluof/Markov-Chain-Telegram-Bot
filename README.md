@@ -6,12 +6,12 @@ It is not a perfect interlocutor yet, but from time to time he can give you adeq
 
 ## Content
 
-- [Requirements](#Requirements)
-- [Production](#Production)
-- [Installation](#Installation)
-- [Deployment](#Deployment)
-- [Example](#Example)
-- [License](#License)
+- [Requirements](#requirements)
+- [Production](#production)
+- [Installation](#installation)
+- [Deployment](#deployment)
+- [Example](#example)
+- [License](#license)
 
 ## Requirements
 
@@ -61,7 +61,7 @@ Current `main.py` developed for JSON base. If you want to use another format, th
 
 1) Create `.env` file and fill out it. See `.env.example` for example.
 
-2) [Deploy the files on a PaaS platform](#Deployment).
+2) [Deploy the files on a PaaS platform](#deployment).
 
 3) Make sure your deployed server is running. If not, then you can do that with that command (you should type in the deployed server console, not local)
 ```bash
