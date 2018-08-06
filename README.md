@@ -70,13 +70,15 @@ yarn run start
 
 4) [Set a webhook](https://core.telegram.org/bots/api#setwebhook)
 ```bash
-curl --data "url=<your server url>" https://api.telegram.org/<your bot token>/setWebhook
+curl --data "url=<your server url>" https://api.telegram.org/bot<your bot token>/setWebhook
 ```
 
 **Russians users may need a proxy**
 ```bash
-curl --data "url=<your server url>" --proxy <[protocol://][user:password@][proxyhost][:port]> https://api.telegram.org/<your bot token>/setWebhook
+curl --data "url=<your server url>" --proxy <[protocol://][user:password@][proxyhost][:port]> https://api.telegram.org/bot<your bot token>/setWebhook
 ```
+
+Make sure you specify a right url. For example, in current server configuration Telegram requests can be handled on `/telegram` url. So, you should specify something like this `--data "url=https://example.com/telegram".`
 
 5) And now you can chat with your own friend!
 
