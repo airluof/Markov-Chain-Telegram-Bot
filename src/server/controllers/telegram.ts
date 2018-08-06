@@ -70,7 +70,7 @@ const generateMarkovChain: CustomController = async (req, res) => {
      * @see https://core.telegram.org/bots/api#sendmessage
      */
     const sendOptions: any = {
-        chat_id: process.env.NODE_ENV == "development" ? "dev" : req.body.message.chat.id
+        chat_id: process.env.NODE_ENV === "development" ? "dev" : req.body.message.chat.id
     };
 
     try {
@@ -85,14 +85,14 @@ const generateMarkovChain: CustomController = async (req, res) => {
 
     // if development, then send to local computer.
     if (process.env.NODE_ENV === "development") {
-        url = req.protocol + '://' + req.get('host') + req.originalUrl;
+        url = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
     } else {
         url = `${process.env.BOT_API}${process.env.BOT_TOKEN}/sendMessage`;
     }
 
     axios.post(url, sendOptions)
     .then((res) => {
-        const username = process.env.NODE_ENV == "development" ? "dev" : req.body.message.chat.username;
+        const username = process.env.NODE_ENV === "development" ? "dev" : req.body.message.chat.username;
         console.log(`Message for ${username} is sended: ${sendOptions.text}`);
     })
     .catch((err) => {
