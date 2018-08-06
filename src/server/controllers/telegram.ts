@@ -39,11 +39,83 @@ export const webHook: CustomController = (req, res) => {
  * Handles Telegram Message request.
  */
 const message: CustomController = (req, res) => {
-    if (req.body.message.text) {
+    if (req.body.message.entities) {
+        messageEntities(req, res);
+    } else if (req.body.message.text) {
         messagePlainText(req, res);
     } else {
-        console.warn("Telegram Message request doesn't contains a plain text.");
+        console.warn("Telegram Message request doesn't contains any appropriate data.");
+        console.warn(req.body.message);
         res.sendStatus(200);
+    }
+};
+
+
+/**
+ * Handles Telegram Message that contains an entities.
+ */
+const messageEntities: CustomController = (req, res) => {
+    const text = req.body.message.text;
+
+    for (let entity of req.body.message.entities) {
+        if (entity.type === "bot_command") {
+            messageCommand(
+                text.slice(entity.offset, entity.offset + entity.length),
+                req.body.message.chat.id
+            );
+        }
+    }
+
+    res.sendStatus(200);
+};
+
+
+/**
+ * Handles Bot Command.
+ *
+ * @param command A text command (with `/` sign).
+ * @param chat_id From what chat received. Used for response.
+ *
+ * @example Command - `/start`
+ */
+const messageCommand = async (command: string, chat_id: number): Promise<void> => {
+    /**
+     * @see https://core.telegram.org/bots/api#sendmessage
+     */
+    const sendOptions: any = {
+        chat_id: chat_id
+    };
+    const url = `${process.env.BOT_API}${process.env.BOT_TOKEN}/sendMessage`;
+
+    switch (command) {
+        case "/start": {
+            sendOptions.text = "Start";
+
+            try {
+                await axios.post(url, sendOptions);
+            } catch (error) {
+                console.error(error);
+            }
+
+            break;
+        }
+
+        case "/help": {
+            sendOptions.text = "Help";
+
+            try {
+                await axios.post(url, sendOptions);
+            } catch (error) {
+                console.error(error);
+            }
+
+            break;
+        }
+
+        default: {
+            console.warn(`Unknown command - ${command}`);
+            break;
+        }
     }
 };
 
