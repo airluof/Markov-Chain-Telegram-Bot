@@ -25,7 +25,8 @@ def main():
         if (start_text == "48598ee283437e810f2f0eb1cf66e217"):
             break
 
-        start_text = handle_input_text(start_text)
+        # 3 - how many windows in the chain.
+        start_text = handle_input_text(start_text, 3)
 
         if (start_text):
             print(chain.generate(start=start_text))
