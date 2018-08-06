@@ -28,7 +28,7 @@ export const webHook: CustomController = (req, res) => {
     if (req.body.message) {
         message(req, res);
     } else {
-        console.warn("Unhandled Telegram request type.");
+        console.warn("Unhandled request type.");
         console.warn(req.body);
         res.sendStatus(200);
     }
@@ -86,6 +86,8 @@ const generateMarkovChain: CustomController = async (req, res) => {
     // if development, then send to local computer.
     if (process.env.NODE_ENV === "development") {
         url = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
+        sendOptions.whatisit = "It is a generated message in response to your POST request.";
+        sendOptions.wherefrom = "Sended by server to itself.";
     } else {
         url = `${process.env.BOT_API}${process.env.BOT_TOKEN}/sendMessage`;
     }
