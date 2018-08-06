@@ -23,6 +23,6 @@ overrides:
       options:
         singleQuote: true
 
-    - files: ["*.md", "*.json"]
+    - files: ["*.md", "*.sh"]
       options:
         tabWidth: 2
